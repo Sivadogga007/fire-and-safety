@@ -1,0 +1,5 @@
+# Schema for the configuration files of the fire_and_safety theme.
+
+fire_and_safety.settings:
+  type: theme_settings
+  label: 'fire_and_safety settings'

@@ -1,0 +1,45 @@
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if label %}
+    <h2>{{ label }}</h2>
+  {% endif %}
+  {{ title_suffix }}
+  <h3 class="safety-title">Laboratory Safety</h3>
+  {% block content %}
+    {% for row in content['#view'].result %}
+      {% set media_entity = row._entity.field_imagelogo.0.entity %}
+      {% set field_imagelogo = media_entity and media_entity.field_media_image.0.entity ? (media_entity.field_media_image.0.entity.uri.value | image_style('thumbnail')) : '' %}
+      {% set title = row._entity.title.value %}
+      {% set body = row._entity.body.value|raw|replace({'<!-- wp:paragraph -->': '', '<!-- /wp:paragraph -->': '', '<p>': '', '</p>': ''}) %}
+      {% set pdf_links = row._entity.field_pdf_links %}
+
+      <div class="d-flex align-items-center mb-3">
+        {% if field_imagelogo %}
+          <img src="{{ field_imagelogo }}" alt="{{ title }}" class="img-10 fullscreen">
+        {% endif %}
+        <div class="ms-3">
+          <p class="fw-bold mb-1">{{ title }}</p>
+          <p>{{ body }}</p>
+          {% if pdf_links %}
+            {% for delta, link in pdf_links %}
+              {% set uri = link.uri %}
+              {% set link_title = link.title ?: title %}
+              {% set options = link.options %}
+              {% if uri %}
+                <a href="{{ uri }}" target="_blank" rel="noreferrer" style="color: #06BBCC;text-decoration:none;">{{ link_title }}</a>
+                {% if not loop.last %} | {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% endblock %}
+</div>

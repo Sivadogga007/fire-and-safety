@@ -1,0 +1,64 @@
+{% set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished'
+] %}
+{{ attach_library('fire_and_safety/accordion-submenu') }}
+{% block paragraph %}
+<h4 class="submenu-title text-center mb-3">Topics</h4>
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+      {% set accordion_items = [] %}
+      {% set target_ids = [] %}
+
+      {# Generate accordion items and target IDs #}
+      {% for item in other_page_items %}
+        {% if item.title not in ['Introduction', 'Organization Structure', 'Events'] %}
+          {% set accordion_item = {
+            'title': item.title,
+            'title_tag': 'h4',
+            'content': item.content,
+            'stay_open': false
+          } %}
+          {% set accordion_items = accordion_items|merge([accordion_item]) %}
+          {% set target_id = 'collapse-accordion--' ~ paragraph.id() ~ '-' ~ loop.index0 %}
+          {% set target_ids = target_ids|merge([target_id]) %}
+        {% endif %}
+      {% endfor %}
+
+      {% if accordion_items|length > 0 %}
+        <div class="accordion-submenu-wrapper mb-4">
+          <nav class="accordion-submenu card">
+           
+            <div class="my-list row g-2">
+              {% for item in accordion_items|reverse %}
+                {% set index = loop.index0 %}
+                {% set target_id = target_ids[index] %}
+                {% if item.title != 'Planner' %}
+                <div class="col-md-3">
+                  <a href="#{{ target_id }}" 
+                     class="list-group-item list-group-item-action" 
+                     {{ loop.first ? 'aria-current="true"' : '' }}>
+                    {{ item.title }}
+                  </a>
+                </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </nav>
+        </div>
+        <div class="accordion-content-wrapper">
+          {% include 'fire_and_safety:accordion' with {
+            'title': null,
+            'title_tag': 'h2',
+            'items': accordion_items|reverse,
+            'flush': true,
+            'id': 'accordion--' ~ paragraph.id(),
+            'open_all_by_default': true
+          } %}
+        </div>
+      {% endif %}
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

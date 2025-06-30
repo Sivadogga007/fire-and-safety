@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * @file
+ * Theme functions for the fire_and_safety theme.
+ */
+
+use Drupal\node\Entity\Node;
+
+// Include all files from the includes directory.
+$includes_path = __DIR__ . '/includes/*.theme';
+if (file_exists(__DIR__ . '/includes')) {
+  foreach (glob($includes_path) as $file) {
+    require_once __DIR__ . '/includes/' . basename($file);
+  }
+}
+
+
+
+
+
+function fire_and_safety_preprocess_paragraph(&$variables) {
+  $paragraph = $variables['paragraph'];
+  if ($paragraph->bundle() === 'accordion') {
+    try {
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', ['page', 'article'], 'IN')
+        ->condition('status', 1)
+        ->accessCheck(TRUE)
+        ->sort('created', 'DESC')
+        ->range(0, 15);
+      $nids = $query->execute();
+
+      $other_page_items = [];
+      $target_ids = [];
+      if (!empty($nids)) {
+        $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
+        foreach ($nodes as $index => $node) {
+          $other_page_items[] = [
+            'title' => $node->getTitle(),
+            'title_tag' => 'h3',
+            'content' => $node->hasField('body') && !$node->get('body')->isEmpty() ? $node->get('body')->view(['type' => 'text_default', 'label' => 'hidden']) : '',
+            'stay_open' => FALSE,
+          ];
+          $target_ids[] = 'collapse-accordion--' . $paragraph->id() . '-' . $index;
+        }
+      }
+
+      $variables['other_page_items'] = $other_page_items;
+      $variables['target_ids'] = $target_ids; // Pass target_ids to Twig.
+
+      $variables['#cache']['tags'][] = 'node_list';
+      $variables['#cache']['contexts'][] = 'user.permissions';
+    }
+    catch (\Exception $e) {
+      \Drupal::logger('fire_and_safety')->error('Error in preprocess_paragraph: @message', ['@message' => $e->getMessage()]);
+      $variables['other_page_items'] = [];
+      $variables['target_ids'] = [];
+    }
+  }
+}

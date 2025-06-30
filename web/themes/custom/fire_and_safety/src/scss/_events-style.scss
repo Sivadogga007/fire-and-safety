@@ -1,0 +1,222 @@
+.safety-title{
+  font-size: 1.2rem;
+width: max-content;
+background-color: red;
+background: linear-gradient(280deg,rgba(6,187,204,0.2),rgba(214,214,214,0.5));
+color: #000;
+font-weight: 500;
+padding: 0.5rem 1rem;
+margin-bottom: 1rem;
+border-top-right-radius: 20px;
+border-bottom-right-radius: 20px;
+}
+.events-block {
+    margin: 0 0; // 2rem margin
+    padding: $spacer * 0.5; // 1rem padding
+  
+    .events-title {
+      font-size: $h4-font-size; // ~2.5rem
+      font-weight: $font-weight-medium;
+      text-align: center;
+      margin-bottom: $spacer * 2; // 1.5rem
+      color: $headings-color;
+  
+      @media (max-width: map-get($grid-breakpoints, 'md')) {
+        font-size: $h5-font-size; // Smaller on mobile
+      }
+    }
+  
+    .subsection-title {
+      font-size: $h6-font-size;
+      text-align: center;
+      margin-bottom: $spacer;
+      color: $headings-color;
+    }
+  
+    .event-card {
+      border: 1px solid $gray-300;
+      padding: $spacer * 0.25; // 1rem
+      @include border-radius($border-radius);
+      background: $white;
+      @include transition(box-shadow 0.3s ease);
+  
+      &:hover {
+        @include box-shadow(0 4px 8px rgba($black, 0.1));
+      }
+  
+      .event-image {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        margin-right: $spacer; // 1rem
+  
+        @media (max-width: map-get($grid-breakpoints, 'sm')) {
+          width: 30px;
+          height: 30px;
+        }
+      }
+  
+      .card-body {
+        padding: 0 0 0 $spacer * 0.75; // 0.75rem
+  
+        .event-title {
+          font-size: $font-size-sm; // 1.2rem
+          color: $primary; // #007bff
+          text-decoration: none;
+          margin-bottom: $spacer * 0.25; // 0.25rem
+  
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+  
+        .event-date {
+          font-size: $font-size-sm; // 0.9rem
+          color: $gray-600;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  .planner-title {
+    font-size: $h4-font-size; // ~2rem
+    font-weight: $font-weight-medium;
+    color: $headings-color; // Matches .events-title
+    margin-bottom: $spacer * 2; // 2rem, aligns with mb-4
+    text-align: center;
+  
+    @include media-breakpoint-down(md) {
+      font-size: $h5-font-size; // ~1.75rem on mobile
+    }
+  }
+  
+  .legend-card {
+    background-color: $gray-100;
+    border: none;
+    @include border-radius($border-radius-lg);
+    @include transition(transform 0.2s ease);
+    padding: $spacer * 1.5;
+  
+    &:hover {
+      transform: translateY(-5px);
+    }
+  
+    .card-title {
+      font-size: $h5-font-size;
+      color: $gray-900;
+      border-bottom: 2px solid $primary;
+      padding-bottom: $spacer * 0.5;
+      margin-bottom: $spacer;
+    }
+  
+    .col-12 {
+      padding: $spacer * 0.5 0;
+    }
+  
+    .legend-swatch {
+      width: 20px;
+      height: 20px;
+      border: 1px solid $black;
+      flex-shrink: 0;
+    }
+  
+    span {
+      font-size: $font-size-sm;
+      color: $gray-600;
+    }
+  }
+  
+  .calendar-card {
+    border: none;
+    @include border-radius($border-radius-lg);
+    padding: $spacer * 1.5;
+  }
+  
+  @include media-breakpoint-down(md) {
+    .legend-card {
+      margin-bottom: $spacer * 1.5;
+    }
+  }
+  .accordion-submenu-wrapper {
+    margin-bottom: $spacer * 1.5; // Matches mb-4
+    
+    .accordion-submenu {
+      background-color: $gray-100; // #f8f9fa
+      border: none;
+      @include border-radius($border-radius);
+      padding: $spacer; // 1rem
+  
+      .my-list {
+        &.row {
+          margin: 0; // Reset row margins
+        }
+  
+        .col-md-6 {
+          padding: $spacer * 0.25; // 0.25rem padding for column
+        }
+  
+        .list-group-item {
+          font-size: $font-size-sm; // 0.875rem, smaller for compact menu
+          color: $gray-700;
+          @include transition(background-color 0.2s ease);
+          border-radius: $border-radius-sm;
+          padding: $spacer * 0.5 $spacer; // 0.5rem 1rem
+          text-align: center; // Center text for balance
+  
+          &:hover,
+          &.active,
+          &[aria-current="true"] {
+            background-color: $primary;
+            color: $white;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+  
+  .accordion-content-wrapper {
+    .accordion {
+      .accordion-item {
+        border: 1px solid $gray-300;
+        @include border-radius($border-radius);
+        margin-bottom: $spacer; // Add gap between items (1rem)
+  
+        &:last-child {
+          margin-bottom: 0; // No margin for last item
+        }
+  
+        .accordion-header {
+          .accordion-button {
+            font-size: $h5-font-size; // ~1.5rem, matches h4
+            font-weight: $font-weight-medium;
+            color: $headings-color;
+            background-color: $white;
+            padding: $spacer * 0.75 $spacer; // 0.75rem 1rem
+  
+            &:not(.collapsed) {
+              background-color: $gray-100;
+              color: $primary;
+            }
+          }
+        }
+  
+        .accordion-body {
+          padding: $spacer * 1.5; // 1.5rem
+          color: $body-color;
+        }
+      }
+    }
+  }
+  
+  @include media-breakpoint-down(md) {
+    .accordion-submenu-wrapper {
+      margin-bottom: $spacer;
+  
+      .my-list {
+        .col-md-6 {
+          @include make-col(12); // Full width on mobile
+        }
+      }
+    }
+  }

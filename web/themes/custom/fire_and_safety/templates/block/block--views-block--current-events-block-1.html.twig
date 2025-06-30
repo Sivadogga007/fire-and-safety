@@ -1,0 +1,53 @@
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+    'events-block',
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if label %}
+    <h4 class="events-title text-center">{{ label }}</h4>
+  {% endif %}
+  {{ title_suffix }}
+
+  {% block content %}
+    <div class="row g-4">
+      {% for row in content['#view'].result %}
+        {% set node = row._entity %}
+        {% set title = node.title.value %}
+        {% set event_date = node.field_event_date.value%}
+       {% if node.field_event_image.0.entity %}
+        {# Image uploaded #}
+       
+        {% set event_image = node.field_event_image.0.entity.uri.value | image_style('thumbnail') %}
+      {% else %}
+        {# Default image #}
+         
+        {% set event_image = "https://www.iitb.ac.in/themes/custom/iitb_bootstrap/logo.png" %}
+      {% endif %}
+       
+        {% set path = path('entity.node.canonical', {'node': node.nid.value}) %}
+
+        <div class="col-md-12 mt-0">
+       
+          <div class="card event-card d-flex flex-row align-items-center mb-2">
+       
+            {% if event_image %}
+              <img src="{{ event_image }}" alt="{{ title }}" class="event-image me-3">
+            {% endif %}
+            <div class="card-body">
+              <h3 class="card-title mb-1">
+                <a href="{{ path }}" class="event-title">{{ title }}</a>
+              </h3>
+              <p class="event-date mb-0">{{ event_date }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endblock %}
+</div>
+

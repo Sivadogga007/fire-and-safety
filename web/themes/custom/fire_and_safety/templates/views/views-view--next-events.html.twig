@@ -1,0 +1,38 @@
+{%
+  set classes = [
+    'views-view',
+    'events-block',
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if title %}
+    <h2 class="events-title text-center">{{ title }}</h2>
+  {% endif %}
+  {{ title_suffix }}
+
+  <div class="row g-4">
+    {% for row in rows %}
+      {% set node = row.content['#row']._entity %}
+      {% set title = node.title.value %}
+      {% set event_date = node.field_event_date.value | format_date('medium') %}
+      {% set event_image = node.field_event_image.0.entity ? (node.field_event_image.0.entity.uri.value | image_style('thumbnail')) : '' %}
+      {% set path = path('entity.node.canonical', {'node': node.nid.value}) %}
+
+      <div class="col-md-12">
+        <div class="card event-card d-flex flex-row align-items-center mb-2">
+          {% if event_image %}
+            <img src="{{ event_image }}" alt="{{ title }}" class="event-image me-3">
+          {% endif %}
+          <div class="card-body">
+            <h3 class="card-title mb-1">
+              <a href="{{ path }}" class="event-title">{{ title }}</a>
+            </h3>
+            <p class="event-date mb-0">{{ event_date }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+

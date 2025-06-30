@@ -1,0 +1,47 @@
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if label %}
+    <h2>{{ label }}</h2>
+  {% endif %}
+  {{ title_suffix }}
+
+  {% block content %}
+    <ul class="list-group">
+      {% for row in content['#view'].result %}
+        {% set node = row._entity %}
+        {% set title = node.title.value %}
+        {% set body = node.body.value|raw|replace({'<!-- wp:video -->': '', '<!-- /wp:video -->': '', '<!-- wp:embed -->': '', '<!-- /wp:embed -->': '', '<figure class="wp-block-video">': '', '</figure>': '', '<figure class="wp-block-embed is-type-rich is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio">': ''})|trim %}
+
+        {% set link = '' %}
+        {% if body|split('src="')|length > 1 %}
+          {% set link_parts = body|split('src="')[1]|split('"') %}
+          {% set link = link_parts[0]|trim %}
+        {% elseif body|split('wp-block-embed__wrapper">')|length > 1 %}
+          {% set link_parts = body|split('wp-block-embed__wrapper">')[1]|split('</div>') %}
+          {% set link = link_parts[0]|trim %}
+        {% endif %}
+
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">{{ loop.index }}. {{ title }}</div>
+          </div>
+          <div>
+            <span class="text-muted me-3">File</span>
+            {% if link %}
+              <a href="{{ link }}" class="btn btn-link p-0" target="_blank">Video</a>
+            {% else %}
+              <span>No video available</span>
+            {% endif %}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endblock %}
+</div>

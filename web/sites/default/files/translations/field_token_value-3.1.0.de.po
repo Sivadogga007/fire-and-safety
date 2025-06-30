@@ -1,0 +1,26 @@
+# German translation of Field Token Value (3.1.0)
+# Copyright (c) 2025 by the German translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Field Token Value (3.1.0)\n"
+"POT-Creation-Date: 2025-02-25 22:46+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: German\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Value"
+msgstr "Wert"
+msgid "Link"
+msgstr "Link"
+msgid "Text"
+msgstr "Text"
+msgid "Field value"
+msgstr "Feldwert"
+msgid "Default value"
+msgstr "Standardwert"
+msgid "Wrapper"
+msgstr "Umgebendes Element"

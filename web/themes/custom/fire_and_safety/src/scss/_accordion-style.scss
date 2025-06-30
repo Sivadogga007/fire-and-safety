@@ -1,0 +1,22 @@
+.accordion-submenu {
+    margin-bottom: 1.5rem;
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    li {
+      margin: 0;
+    }
+    a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: 500;
+      &:hover {
+        text-decoration: underline;
+        color: #0056b3;
+      }
+    }
+  }

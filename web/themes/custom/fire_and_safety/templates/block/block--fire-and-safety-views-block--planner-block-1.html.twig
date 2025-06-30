@@ -1,0 +1,57 @@
+
+{% set legend %}
+  <div class="card shadow-sm p-3 legend-card">
+    <h5 class="card-title mb-3">Event Legend</h5>
+    <div class="row g-2">
+      <div class="col-12 d-flex align-items-center">
+        <div class="legend-swatch" style="background-color: #ffff99;"></div>
+        <span class="ms-2">Training</span>
+      </div>
+      <div class="col-12 d-flex align-items-center">
+        <div class="legend-swatch" style="background-color: #c9d2e0;"></div>
+        <span class="ms-2">Visits to Hostel</span>
+      </div>
+      <div class="col-12 d-flex align-items-center">
+        <div class="legend-swatch" style="background-color: #c9e5b1;"></div>
+        <span class="ms-2">Visit to residential</span>
+      </div>
+      <div class="col-12 d-flex align-items-center">
+        <div class="legend-swatch" style="background-color: #dddddd;"></div>
+        <span class="ms-2">Visit to Department</span>
+      </div>
+      <div class="col-12 d-flex align-items-center">
+        <div class="legend-swatch" style="background-color: #b7c9f2;"></div>
+        <span class="ms-2">Visit to Common Area</span>
+      </div>
+      <div class="col-12 d-flex align-items-center">
+        <div class="legend-swatch" style="background-color: #c86e18;"></div>
+        <span class="ms-2">Visit to Construction Site</span>
+      </div>
+      <div class="col-12 d-flex align-items-center">
+        <div class="col-12 d-flex align-items-center">
+          <div class="legend-swatch" style="background-color: #f4b1b1;"></div>
+          <span class="ms-2">Visit to Centres</span>
+        </div>
+      </div>
+      <div class="col-12 d-flex align-items-center mt-3">
+        <div class="legend-swatch" style="background-color: #ff0000;"></div>
+        <span class="ms-2">Drill (as per Fire Drills: Evacuation Guidelines and Procedures)</span>
+      </div>
+    </div>
+  </div>
+{% endset %}
+
+<h4 class="planner-title text-center mb-4">Planner</h4>
+
+<div class="container-fluid mb-3">
+  <div class="row g-3">
+    <div class="col-lg-3 col-md-4">
+      {{ legend }}
+    </div>
+    <div class="col-lg-9 col-md-8">
+      <div class="card shadow-sm p-3 calendar-card">
+        {{ drupal_view('fullcalendar', 'page_1') }}
+      </div>
+    </div>
+  </div>
+</div>

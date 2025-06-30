@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Theme override to display a view of unformatted rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ */
+#}
+{% include "radix:views-view--unformatted" %}
+{% embed "radix:views-view--unformatted" %}
+  {% block views_unformatted_rows %}
+    {% set accordion_items = [] %}
+    {% for row in rows %}
+      {% set node = row.content['#node'] %}
+      {% set node_title = node.getTitle() %}
+      {% set node_body = node.body.processed %}
+      {% set accordion_item = {
+        title_tag: 'h3',
+        title: node_title,
+        content: node_body,
+      } %}
+
+      {% set accordion_items = accordion_items|merge([accordion_item]) %}
+    {% endfor %}
+
+    {% include 'radix:accordion' with {
+      open_item_id: 1,
+      id: 'faq',
+      flush: true,
+      items: accordion_items
+    } %}
+  {% endblock %}
+{% endembed %}

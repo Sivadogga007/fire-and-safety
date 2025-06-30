@@ -1,0 +1,162 @@
+{% set classes = [
+  'paragraph',
+  'mb-3',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished'
+] %}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+
+    <style>
+  .slide-img-clip {
+  clip-path: polygon(7.5% 0, 100% 0, 100% 100%, 0 100%);
+  
+  object-fit: cover;  /* keep aspect ratio, crop if needed */
+}
+
+@media (min-width: 1600px) {
+  .slide-img-clip {
+   
+  }
+}
+
+.carousel {
+  padding-left: 0vw;
+  padding-right: 0vw;
+}
+
+/* UPDATED: Use min-height and flex layout for carousel items */
+.carousel-item {
+  
+  display: flex;      /* make carousel-item a flex container */
+  align-items: stretch; /* stretch children vertically */
+}
+
+/* Remove Bootstrap row margins and make row take full width and height */
+.carousel-item .row {
+  flex-grow: 1;
+  margin: 0;
+  width: 100%;
+}
+
+/* Remove padding from columns, make columns flex containers for vertical alignment */
+.carousel-item .col-md-3,
+.carousel-item .col-md-9 {
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Make image fill the height of col-md-9 and cover */
+.col-md-9 img.slide-img-clip {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 575px) {
+  .carousel-item {
+    position: relative;
+    height: auto;
+    display: block;  /* revert flex for small screens */
+  }
+
+  .carousel-item .row,
+  .carousel-item .col-md-3,
+  .carousel-item .col-md-9 {
+    padding: initial;
+    display: block;
+  }
+
+  .col-md-9 img.slide-img-clip {
+    height: auto;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    display: none;
+  }
+
+  .slide-img-clip {
+    clip-path: none;
+  }
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+  transform: scale(1);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  background-color: transparent;
+  opacity: 0.7;
+  margin: 0 -2.5rem;
+  width: 2.5vw;
+}
+
+.caption-text {
+  font-size: 1.15rem;
+  text-align: justify;
+  padding-right: 1rem;
+}
+
+    </style>
+
+    {% set carousel_id = 'carousel--' ~ paragraph.id() %}
+    {% set items = paragraph.field_carousel_items %}
+
+    {% if items|length > 0 %}
+      <div class="container my-2 p-0">
+        <div id="{{ carousel_id }}" class="carousel slide" data-bs-ride="carousel">
+
+          <!-- Carousel Items -->
+          <div class="carousel-inner">
+            {% for item in items %}
+              {% set media = item.entity.field_image.entity %}
+              {% set image_uri = media.field_media_image|file_url %}
+              {% set caption = item.entity.field_caption.value %}
+             {% set title = item.entity.field_title.value %}
+
+              {% set link = item.entity.field_link.uri ?? '#' %}
+
+              <div class="carousel-item{{ loop.first ? ' active' }}">
+                <div class="row">
+                  <div class="col-md-3 d-flex flex-column justify-content-start align-items-start ">
+                    {% if caption %}
+                    <div class="fs-4"><strong>{{title}}</strong></div>
+                      <div class="fs-6">{{ caption }}</div>
+                    {% endif %}
+                  </div>
+                  <div class="col-md-9">
+                    <a href="{{ link }}" class="d-block w-100">
+                      <img class="slide-img-clip img-fluid w-100 h-100"
+                         src="{{ image_uri }}"
+                         alt="{{ media.field_media_image.alt ?? '' }}">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          <!-- Controls -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    {% endif %}
+
+    {{ content|without('field_carousel_items') }}
+  </div>
+  
+{% endblock paragraph %}
