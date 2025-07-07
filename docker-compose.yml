@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  drupal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fire-drupal
+    ports:
+      - "8085:80"  # Access Drupal at http://localhost:8085
+    restart: always
+    environment:
+      - DRUPAL_DB_HOST=mariadb
+      - DRUPAL_DB_NAME=db
+      - DRUPAL_DB_USER=db
+      - DRUPAL_DB_PASSWORD=db
+    depends_on:
+      - mariadb
+    volumes:
+      - drupal_data:/var/www/html/web/sites/default/files
+
+  mariadb:
+    image: mariadb:10.11
+    container_name: fire-db
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=db
+      - MARIADB_USER=db
+      - MARIADB_PASSWORD=db
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql:ro  # Optional: initial import
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8086:80"
+    environment:
+      - PMA_HOST=mariadb
+      - MYSQL_ROOT_PASSWORD=db
+      - UPLOAD_LIMIT=512M
+    depends_on:
+      - mariadb
+
+volumes:
+  drupal_data:
+  mariadb_data:
