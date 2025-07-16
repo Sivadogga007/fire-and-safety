@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "168425bd0dda9c9bc17f16765da678b6",
+    "content-hash": "38fd6e4c0210a7795f57fce0378dbbc1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1450,6 +1450,62 @@
                 }
             ],
             "time": "2024-11-01T21:49:07+00:00"
+        },
+        {
+            "name": "drupal/accessible_back_to_top",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/accessible_back_to_top.git",
+                "reference": "1.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/accessible_back_to_top-1.1.0.zip",
+                "reference": "1.1.0",
+                "shasum": "6f2970987098cebc4c81e093b064e5ea03db3d49"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.0",
+                    "datestamp": "1742315643",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "amykhailova",
+                    "homepage": "https://www.drupal.org/user/2892725"
+                },
+                {
+                    "name": "mariamkh2512@gmail.com",
+                    "homepage": "https://www.drupal.org/user/3720156"
+                },
+                {
+                    "name": "robloach",
+                    "homepage": "https://www.drupal.org/user/61114"
+                },
+                {
+                    "name": "ultrabob",
+                    "homepage": "https://www.drupal.org/user/110463"
+                }
+            ],
+            "description": "Adds an accessible back to top button",
+            "homepage": "https://www.drupal.org/project/accessible_back_to_top",
+            "support": {
+                "source": "https://git.drupalcode.org/project/accessible_back_to_top"
+            }
         },
         {
             "name": "drupal/autocomplete_deluxe",

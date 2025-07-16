@@ -8155,18 +8155,25 @@ function withinMaxClamp(min, value, max) {
 
 /***/ }),
 
-/***/ "./src/js/_accordion-scroll.script.js":
-/*!********************************************!*\
-  !*** ./src/js/_accordion-scroll.script.js ***!
-  \********************************************/
+/***/ "./src/js/_accordion-submenu.js":
+/*!**************************************!*\
+  !*** ./src/js/_accordion-submenu.js ***!
+  \**************************************/
 /***/ (function() {
 
 document.addEventListener('DOMContentLoaded', function () {
   // Select all submenu links
   var scrollLinks = document.querySelectorAll('.accordion-scroll-link');
+  var backToMenuWrapper = document.querySelector('.back-to-menu-wrapper');
   scrollLinks.forEach(function (link) {
     link.addEventListener('click', function (e) {
       e.preventDefault(); // Prevent default anchor behavior
+
+      // Remove active class from all links
+      scrollLinks.forEach(function (l) {
+        return l.classList.remove('active');
+      });
+      this.classList.add('active'); // Add active to clicked link
 
       // Get the target accordion item's collapsible section
       var targetId = this.getAttribute('href').substring(1); // Remove the '#'
@@ -8179,7 +8186,7 @@ document.addEventListener('DOMContentLoaded', function () {
         bsCollapse.show(); // Ensure the item is expanded
 
         // Smooth scroll to the accordion item
-        var headerOffset = 80; // Adjust based on fixed header height, if any
+        var headerOffset = 80; // Adjust based on fixed header height
         var elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
         var offsetPosition = elementPosition - headerOffset;
         window.scrollTo({
@@ -8188,6 +8195,40 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       }
     });
+  });
+
+  // Show/hide Back to Menu button on scroll (Option B)
+  if (backToMenuWrapper) {
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 300) {
+        backToMenuWrapper.classList.add('visible');
+      } else {
+        backToMenuWrapper.classList.remove('visible');
+      }
+    });
+  }
+
+  // Scroll-Spy: Highlight active menu item based on visible accordion section
+  var sections = Array.from(document.querySelectorAll('.accordion .accordion-collapse'));
+  window.addEventListener('scroll', function () {
+    var currentSectionId = '';
+    var scrollY = window.scrollY + 150; // Adjust threshold
+
+    sections.forEach(function (section) {
+      var sectionTop = section.offsetTop;
+      var sectionHeight = section.offsetHeight;
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        currentSectionId = section.id;
+      }
+    });
+    if (currentSectionId) {
+      scrollLinks.forEach(function (link) {
+        link.classList.remove('active');
+        if (link.getAttribute('href').substring(1) === currentSectionId) {
+          link.classList.add('active');
+        }
+      });
+    }
   });
 });
 
@@ -8338,8 +8379,8 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_bootstrap */ "./src/js/_bootstrap.js");
-/* harmony import */ var _accordion_scroll_script__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_accordion-scroll.script */ "./src/js/_accordion-scroll.script.js");
-/* harmony import */ var _accordion_scroll_script__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_accordion_scroll_script__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _accordion_submenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_accordion-submenu */ "./src/js/_accordion-submenu.js");
+/* harmony import */ var _accordion_submenu__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_accordion_submenu__WEBPACK_IMPORTED_MODULE_1__);
 // * Bootstrap libraries
 
 

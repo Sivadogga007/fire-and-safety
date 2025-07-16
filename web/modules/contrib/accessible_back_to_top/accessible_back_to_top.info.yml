@@ -1,0 +1,9 @@
+name: Accessible Back To Top
+type: module
+description: 'Adds an accessible back to top button'
+package: Custom
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+# Information added by Drupal.org packaging script on 2025-03-18
+version: '1.1.0'
+project: 'accessible_back_to_top'
+datestamp: 1742315631

@@ -1,22 +1,100 @@
 .accordion-submenu {
-    margin-bottom: 1.5rem;
-    ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    li {
-      margin: 0;
-    }
-    a {
+  margin-bottom: 1.5rem;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0; // reset margin
+  }
+
+  li {
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+    display: block;
+    padding: 0.5rem 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+
+    &:hover {
       text-decoration: none;
-      color: #007bff;
-      font-weight: 500;
-      &:hover {
-        text-decoration: underline;
-        color: #0056b3;
-      }
+      color: #fff;
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+
+    &.active {
+      background-color: #007bff;
+      color: #fff;
+      border-color: #007bff;
     }
   }
+}
+
+// Variables for customization
+$back-to-menu-bg: #6c757d;
+$back-to-menu-color: #fff;
+$back-to-menu-padding: 10px 15px;
+$back-to-menu-radius: 6px;
+$z-index-fixed: 999;
+
+// Back to Menu Button Styling
+.back-to-menu-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: $z-index-fixed;
+
+  .back-to-menu {
+    background-color: $back-to-menu-bg;
+    color: $back-to-menu-color;
+    padding: $back-to-menu-padding;
+    border-radius: $back-to-menu-radius;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+
+    &:hover,
+    &:focus {
+      background-color: darken($back-to-menu-bg, 10%);
+      color: $back-to-menu-color;
+    }
+  }
+
+  // Option B: Show after scroll
+  &.scroll-hidden {
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
+}
+
+// Responsive tweaks
+@media (max-width: 768px) {
+  .accordion-submenu ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .back-to-menu-wrapper {
+    bottom: 10px;
+    right: 10px;
+
+    .back-to-menu {
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+  }
+}

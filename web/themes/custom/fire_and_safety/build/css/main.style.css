@@ -25062,6 +25062,7 @@ textarea.form-control-lg {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  margin: 0;
 }
 .accordion-submenu li {
   margin: 0;
@@ -25070,12 +25071,66 @@ textarea.form-control-lg {
   text-decoration: none;
   color: #007bff;
   font-weight: 500;
+  display: block;
+  padding: 0.5rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
 }
 .accordion-submenu a:hover {
-  text-decoration: underline;
-  color: #0056b3;
+  text-decoration: none;
+  color: #fff;
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+.accordion-submenu a.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
 }
 
+.back-to-menu-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}
+.back-to-menu-wrapper .back-to-menu {
+  background-color: #6c757d;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+.back-to-menu-wrapper .back-to-menu:hover, .back-to-menu-wrapper .back-to-menu:focus {
+  background-color: rgb(84.3605150215, 91.3905579399, 97.6394849785);
+  color: #fff;
+}
+.back-to-menu-wrapper.scroll-hidden {
+  display: none;
+}
+.back-to-menu-wrapper.scroll-hidden.visible {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .accordion-submenu ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .back-to-menu-wrapper {
+    bottom: 10px;
+    right: 10px;
+  }
+  .back-to-menu-wrapper .back-to-menu {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}
 .text-align-justify {
   font-size: 1.15rem;
 }

@@ -1,0 +1,6 @@
+back-to-top:
+  css:
+    theme:
+      css/back-to-top.css: {}
+  js:
+    js/back-to-top.js: {}
