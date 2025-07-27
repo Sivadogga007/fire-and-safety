@@ -30,7 +30,6 @@
         "drupal/entity_usage": "^2.0@beta",
         "drupal/field_group": "^4.0",
         "drupal/field_token_value": "^3.1",
-        "drupal/fontawesome": "^3.0",
         "drupal/fullcalendar": "^3.0",
         "drupal/gutenberg": "^3.0",
         "drupal/paragraphs": "^1.19",

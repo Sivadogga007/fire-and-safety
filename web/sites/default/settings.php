@@ -312,7 +312,12 @@ $settings['hash_salt'] = '';
  * TRUE back to a FALSE!
  */
 $settings['update_free_access'] = FALSE;
-
+$settings['session']['use_cookies'] = TRUE;
+$settings['session']['cookie_lifetime'] = 0; // Session expires on browser close
+$settings['session']['cookie_secure'] = TRUE; // Requires HTTPS
+$settings['https'] = TRUE;
+$settings['reverse_proxy'] = TRUE;
+$settings['reverse_proxy_header'] = 'X-Forwarded-For';
 /**
  * Fallback to HTTP for Update Manager and for fetching security advisories.
  *
@@ -898,3 +903,11 @@ if (getenv('IS_DDEV_PROJECT') == 'true' && file_exists(__DIR__ . '/settings.ddev
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
 
+// $databases['default']['default'] = [
+//   'database' => 'db',
+//   'username' => 'db',
+//   'password' => 'db',
+//   'host' => 'localhost', // or 'mariadb' in Docker
+//   'port' => '3306',
+//   'driver' => 'mysql',
+// ];

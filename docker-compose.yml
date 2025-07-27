@@ -42,8 +42,11 @@ services:
       - PMA_HOST=mariadb
       - MYSQL_ROOT_PASSWORD=root
       - UPLOAD_LIMIT=512M
+      - MEMORY_LIMIT=512M
+      - MAX_EXECUTION_TIME=300
     depends_on:
       - mariadb
+
 volumes:
   drupal_data:
   mariadb_data:

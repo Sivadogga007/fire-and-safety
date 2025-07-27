@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'd671681791c854ecb35a0c134cd4cb097fcbb9d8',
+        'reference' => '1ebe04521786d138718e60e8e7972b1304002d75',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -487,15 +487,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'drupal/fontawesome' => array(
-            'pretty_version' => '3.0.0',
-            'version' => '3.0.0.0',
-            'reference' => '3.0.0',
-            'type' => 'drupal-module',
-            'install_path' => __DIR__ . '/../../web/modules/contrib/fontawesome',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'drupal/fullcalendar' => array(
             'pretty_version' => '3.0.2',
             'version' => '3.0.2.0',
@@ -589,7 +580,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'd671681791c854ecb35a0c134cd4cb097fcbb9d8',
+            'reference' => '1ebe04521786d138718e60e8e7972b1304002d75',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

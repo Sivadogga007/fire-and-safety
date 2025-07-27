@@ -1658,7 +1658,7 @@ module.exports = ExecutionEnvironment;
  *
  *  Further, we have a large number of mature wrapper functions and classes
  *  which abstract away many browser irregularities. Check the documentation,
- *  grep for things, or ask on javascript@lists.facebook.com before writing yet
+ *  grep for things, or ask on  before writing yet
  *  another copy of "event || window.event".
  *
  */
