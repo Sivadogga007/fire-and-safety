@@ -103,6 +103,33 @@
   text-align: justify;
   padding-right: 1rem;
 }
+.carousel-item .card {
+  border: 1px solid #ddd; /* Light border for the card */
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  overflow: hidden; /* Ensure content stays within the card */
+}
+
+.carousel-item .card img {
+  border-bottom: 1px solid #ddd; /* Separate image from content */
+  border-radius: 0; /* Remove image border radius */
+}
+
+.carousel-item .card-body {
+  padding: 1rem; /* Add padding inside the card */
+  text-align: center; /* Center-align text */
+}
+
+.carousel-item .card-title {
+  font-size: 1.25rem; /* Slightly larger title */
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.carousel-item .card-text {
+  font-size: 1rem;
+  color: #666; /* Subtle text color */
+}
 
     </style>
 
@@ -111,6 +138,58 @@
 
     {% if items|length > 0 %}
       <div class="container my-2 p-0">
+      
+
+{{ attach_library('fire_and_safety/main') }}
+
+
+<div{{ attributes.addClass(classes) }}>
+  {% block content %}
+    {% set accordion_items = [] %}
+    {% set target_ids = [] %}
+
+    {# Build accordion items and target IDs safely #}
+    {% for item in other_page_items %}
+      {% if item.title not in ['Introduction', 'Organization Structure', 'Events'] %}
+        {% set accordion_item = {
+          'title': item.title,
+          'title_tag': 'h4',
+          'content': item.content,
+          'stay_open': false
+        } %}
+        {% set accordion_items = (accordion_items is iterable ? accordion_items : []) | merge([accordion_item]) %}
+        {% set target_id = 'collapse-accordion--' ~ accordion_paragraph.id() ~ '-' ~ loop.index0 %}
+        {% set target_ids = (target_ids is iterable ? target_ids : []) | merge([target_id]) %}
+      {% endif %}
+    {% endfor %}
+
+    {# Render menu if there are items #}
+    {% if accordion_items is iterable and accordion_items|length > 0 %}
+      <div class="accordion-submenu-wrapper mb-4" id="accordion-menu-{{ accordion_paragraph.id() }}">
+        <nav class="accordion-submenu card">
+          <div class="my-list row g-2">
+            {% for item in accordion_items|reverse %}
+              {% set index = loop.index0 %}
+              {% set target_id = target_ids[index] %}
+              {% if item.title != 'Planner' %}
+                <div class="col-md-3">
+                  <a href="#{{ target_id }}" 
+                     class="list-group-item list-group-item-action" 
+                     {{ loop.first ? 'aria-current="true"' : '' }}>
+                    {{ item.title }}
+                  </a>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </nav>
+      </div>
+
+    
+    {% endif %}
+  {% endblock %}
+</div>
+
         <div id="{{ carousel_id }}" class="carousel slide" data-bs-ride="carousel">
 
           <!-- Carousel Items -->

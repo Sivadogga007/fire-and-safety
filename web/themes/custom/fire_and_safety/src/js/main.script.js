@@ -1,3 +1,3 @@
 // * Bootstrap libraries
 import './_bootstrap';
-import './_accordion-submenu';
+import './accordion-submenu';

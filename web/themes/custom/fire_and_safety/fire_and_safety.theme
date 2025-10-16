@@ -21,7 +21,7 @@ if (file_exists(__DIR__ . '/includes')) {
 
 function fire_and_safety_preprocess_paragraph(&$variables) {
   $paragraph = $variables['paragraph'];
-  if ($paragraph->bundle() === 'accordion') {
+  if ($paragraph->bundle() === 'accordion' || $paragraph->bundle() === 'carousel') {
     try {
       $query = \Drupal::entityQuery('node')
         ->condition('type', ['page', 'article'], 'IN')
@@ -33,6 +33,7 @@ function fire_and_safety_preprocess_paragraph(&$variables) {
 
       $other_page_items = [];
       $target_ids = [];
+      $variables['accordion_paragraph'] = 58;
       if (!empty($nids)) {
         $nodes = \Drupal\node\Entity\Node::loadMultiple($nids);
         foreach ($nodes as $index => $node) {

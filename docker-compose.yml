@@ -11,9 +11,9 @@ services:
     restart: always
     environment:
       - DRUPAL_DB_HOST=mariadb
-      - DRUPAL_DB_NAME=db
-      - DRUPAL_DB_USER=db
-      - DRUPAL_DB_PASSWORD=db
+      - DRUPAL_DB_NAME=fire-safety
+      - DRUPAL_DB_USER=admin
+      - DRUPAL_DB_PASSWORD=9shZv^XZ/8_pR0eNV|
     depends_on:
       - mariadb
     volumes:
@@ -25,9 +25,9 @@ services:
     restart: always
     environment:
       - MARIADB_ROOT_PASSWORD=root
-      - MARIADB_DATABASE=db
-      - MARIADB_USER=db
-      - MARIADB_PASSWORD=db
+      - MARIADB_DATABASE=fire-safety
+      - MARIADB_USER=admin
+      - MARIADB_PASSWORD=9shZv^XZ/8_pR0eNV|
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./backup.sql.gz:/docker-entrypoint-initdb.d/backup.sql.gz:ro # Optional: initial import

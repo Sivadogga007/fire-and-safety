@@ -6,7 +6,11 @@ style:
     build/js/main.script.js: {}
   dependencies:
     - core/drupal
-
+accordion-submenu:
+  js:
+    js/_accordion-submenu.js: {}
+  dependencies:
+    - core/jquery
 drupal.ajax:
   js:
     src/js/overrides/ajax.js: {}

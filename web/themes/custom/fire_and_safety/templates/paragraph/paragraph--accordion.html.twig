@@ -4,7 +4,8 @@
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
   not paragraph.isPublished() ? 'paragraph--unpublished'
 ] %}
-{{ attach_library('fire_and_safety/accordion-submenu') }}
+
+{{ attach_library('fire_and_safety/main') }}
 
 {% block paragraph %}
 <h4 class="submenu-title text-center mb-3">Topics</h4>
@@ -23,32 +24,14 @@
           'stay_open': false
         } %}
         {% set accordion_items = (accordion_items is iterable ? accordion_items : []) | merge([accordion_item]) %}
-        {% set target_id = 'collapse-accordion--' ~ paragraph.id() ~ '-' ~ loop.index0 %}
+        {% set target_id = 'collapse-accordion--' ~ accordion_paragraph.id() ~ '-' ~ loop.index0 %}
         {% set target_ids = (target_ids is iterable ? target_ids : []) | merge([target_id]) %}
       {% endif %}
     {% endfor %}
 
     {# Render menu if there are items #}
     {% if accordion_items is iterable and accordion_items|length > 0 %}
-      <div class="accordion-submenu-wrapper mb-4" id="accordion-menu-{{ paragraph.id() }}">
-        <nav class="accordion-submenu card">
-          <div class="my-list row g-2">
-            {% for item in accordion_items|reverse %}
-              {% set index = loop.index0 %}
-              {% set target_id = target_ids[index] %}
-              {% if item.title != 'Planner' %}
-                <div class="col-md-3">
-                  <a href="#{{ target_id }}" 
-                     class="list-group-item list-group-item-action" 
-                     {{ loop.first ? 'aria-current="true"' : '' }}>
-                    {{ item.title }}
-                  </a>
-                </div>
-              {% endif %}
-            {% endfor %}
-          </div>
-        </nav>
-      </div>
+  
 
       <div class="accordion-content-wrapper">
         {% include 'fire_and_safety:accordion' with {
@@ -56,13 +39,13 @@
           'title_tag': 'h2',
           'items': accordion_items|reverse,
           'flush': true,
-          'id': 'accordion--' ~ paragraph.id(),
+          'id': 'accordion--' ~ accordion_paragraph.id(),
           'open_all_by_default': true
         } %}
 
         {# Back to Menu button #}
         <div class="back-to-menu-wrapper text-center mt-3">
-          <a href="#accordion-menu-{{ paragraph.id() }}" class="btn btn-secondary back-to-menu">Topics</a>
+          <a href="#accordion-menu-{{ accordion_paragraph.id() }}" class="btn btn-secondary back-to-menu">Topics</a>
         </div>
       </div>
     {% endif %}
